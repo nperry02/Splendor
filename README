@@ -1,0 +1,69 @@
+Board game Splendor in C++. Implemented a 2-player variant. Final Project for cs11
+
+In Splendor, you are a savvy, Renaissance merchant. To maintain your social status, you will use all your
+resources to purchase mines, transportation methods, and vendors that together will let you turn raw gems
+into gorgeous jewels. Your goal is to finish the game with more “prestige points” than your opponent, proving
+that you are the greatest merchant in the land! You and your opponent will take turns until one of you
+reaches 15 prestige points, which signals the end of the game (if the first player hits 15 points, the second
+player gets one more turn). When all final turns are completed, whoever has the most points wins.
+
+There are three components in this game: gems, cards, and nobles.
+Gems are your currency; they are used to purchase cards. There are 6 different types of gems, each of a
+2 different color. There are 4 gems of each normal color (white, red, pink, blue, and green), and 5 of the gold
+“wildcard” gems.
+Cards represent the mines, transportation methods, and vendors that your business relies upon. You will
+purchase cards over the course of the game to both obtain more prestige points and earn discounts that
+make future purchases cheaper. Each category of card has its own deck (3 decks in total): there are 40 mine
+cards, 30 transportation cards, and 20 vendor cards. Every card has three pieces of information:
+1. A prestige point value. This is how many prestige points you gain if you buy the card.
+2. A cost. This specifies how many gems (and of which colors) are required to purchase the card.
+3. A discount (specified as a gem color). If you buy this card, you get a discount on future card purchases.
+
+Splendor is played with two players alternating turns, starting with Player 1. On their turn, a player must
+perform exactly one of the following 4 actions:
+1. Take 3 gem tokens, each of a different color, from the board and into your private collection.
+3
+Gold gems cannot be taken.
+2. Take 2 gem tokens of the same color from the board and into your private collection. Gold gems
+cannot be taken. You may only perform this action if all 4 gems of the desired color are on the board.
+For example, if there are 3 red gems left on the board, you cannot take 2 red gems as your action.
+3. “Reserve” 1 visible card on the board and take 1 gold gem from the board (this is the only way
+you can get gold gems during the game). The reserved card is put in your “hand” (which may hold up
+to 3 reserved cards) and cannot be discarded; the only way to remove it from your hand is to purchase
+it on a later turn (described below). If there is no more gold on the board, you can still reserve a card
+(if you have space in your hand); you simply don’t receive any gold.
+4. “Purchase” 1 visible card, either from the board or from your hand of reserved cards. To purchase
+a card, you must spend the gems matching the card’s cost; the spent gems are returned to the board
+from your private collection. A gold gem can replace a gem of any color, e.g., if a card costs 4 red
+gems but you only have 3 red gems and 1 gold gem, the gold gem can act as the 4th red gem so you
+can purchase the card. Purchasing a card grants you a discount (described below) and the number of
+prestige points indicated on the card.
+A player cannot have more than 10 gems in their private collection at the end of a turn. If they do, they
+must return gems to the board until they only have 10.
+Each card you buy during the game grants you a discount of a given gem color (indicated on the card).
+This discount applies to future purchases: each discount is equal to a gem of that color. For example, if a
+player has 2 blue discounts and wants to purchase a card that costs 2 blue gems and 1 green gem, they only
+have to spend 1 green gem to get the card. Due to this rule, it’s possible to eventually own enough cards
+such that you could purchase a card for free (the costs being covered by your purchased cards’ discounts).
+
+ When a player gains at least 15 prestige points, the game ending is triggered. If Player 1 is the first to
+15 prestige points, then Player 2 gets one more turn before the game is over. If Player 2 is the first to 15
+prestige points, the game is simply over. The player with the most prestige points is the victor! In case of a
+tie, the player who has purchased the fewest cards is the winner.
+
+ Game Buttons:
+q - Quit the game.
+• p3 - Take 3 gems from the table, each of a different color. You specify the colors after the command,
+e.g., p3 red white blue would put a red, white, and blue gem into your private collection.
+• p2 - Take 2 gems of the same color (only possible if there are 4 gems of that color on the table). You
+specify the color after the command, e.g., p2 red would put 2 red gems into your private collection.
+• r - Reserve a visible card from the table. You specify the row by the first letter of its name (i.e.,
+m - Mines, t - Transport, v - Vendors) and then the index of the card in that row (using 1-indexing),
+e.g., r m 4 would reserve the 4th card from the mine row. A gold gem is automatically put in your
+private collection if any gold gems are left on the board.
+• b - Purchase a visible card from the table. You use the same specification as above, e.g., b t 2. The
+gems necessary to purchase the card (including gold “wildcard” gems) are automatically spent, and
+any applicable discounts are applied automatically.
+• br - Purchase a reserved card. You specify the index of the card in your hand (using 1-indexing),
+e.g., br 2 would purchase the second reserved card in your hand. Gems are automatically spent and
+discounts are automatically applied as done in the previous command.
